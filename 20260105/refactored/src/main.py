@@ -1,9 +1,7 @@
 import sys
 
-def a(b, c, d):
-    e = open("data.txt", "a")
-    e.write(b + "," + c + "," + d + "\n")
-    e.close()
+from infrastructure.repositories.csv_book_repository import CsvBookRepository
+
 
 def f():
     try:
@@ -14,7 +12,10 @@ def f():
     except:
         return []
 
+
 def main():
+    csv_book_repository = CsvBookRepository("books.csv")
+
     while True:
         print("1:追加, 2:一覧, 3:検索, 4:終了")
         i = input("選んでください: ")
@@ -25,12 +26,19 @@ def main():
             if j == "" or k == "" or l == "":
                 print("エラー")
             else:
-                a(j, k, l)
+                csv_book_repository.save(j, k, l)
         elif i == "2":
             m = f()
             for n in m:
                 o = n.split(",")
-                print("タイトル:" + o[0] + " 著者:" + o[1] + " 価格:" + o[2].replace("\n", ""))
+                print(
+                    "タイトル:"
+                    + o[0]
+                    + " 著者:"
+                    + o[1]
+                    + " 価格:"
+                    + o[2].replace("\n", "")
+                )
         elif i == "3":
             p = input("検索キーワード: ")
             q = f()
@@ -51,6 +59,7 @@ def main():
                 print("初期化しました")
             else:
                 print("無効な入力")
+
 
 if __name__ == "__main__":
     main()

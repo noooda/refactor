@@ -31,15 +31,15 @@ class CommandHandler:
         author = input("著者: ")
         price = input("価格: ")
 
-        if title == "" or author == "" or price == "":
-            print("エラー")
+        if not (title and author and price):
+            print("タイトル、著者、価格は必須です")
         else:
             self._csv_book_repository.save(title, author, price)
 
     def _list_items(self) -> None:
         books = self._csv_book_repository.load()
 
-        if len(books) == 0:
+        if not books:
             print("データがありません")
             return
 
@@ -51,13 +51,13 @@ class CommandHandler:
 
         books = self._csv_book_repository.load()
 
-        if len(books) == 0:
+        if not books:
             print("データがありません")
             return
 
         books = [book for book in books if query in book[0] or query in book[1]]
 
-        if len(books) == 0:
+        if not books:
             print("データが見つかりません")
             return
 

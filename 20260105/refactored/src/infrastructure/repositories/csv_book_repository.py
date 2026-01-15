@@ -11,6 +11,9 @@ class CsvBookRepository:
             writer.writerow([title, author, price])
 
     def load(self) -> list[list[str]]:
-        with open(self._path, mode="r", newline="", encoding="utf-8") as csv_file:
-            reader = csv.reader(csv_file)
-            return [row for row in reader]
+        try:
+            with open(self._path, mode="r", newline="", encoding="utf-8") as csv_file:
+                reader = csv.reader(csv_file)
+                return [row for row in reader]
+        except FileNotFoundError:
+            return []

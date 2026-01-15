@@ -19,6 +19,9 @@ def main():
                 csv_book_repository.save(j, k, l)
         elif i == "2":
             m = csv_book_repository.load()
+            if len(m) == 0:
+                print("データがありません")
+                continue
             for n in m:
                 print(
                     "タイトル:"
@@ -31,6 +34,9 @@ def main():
         elif i == "3":
             p = input("検索キーワード: ")
             q = csv_book_repository.load()
+            if len(q) == 0:
+                print("データがありません")
+                continue
             r = 0
             for s in q:
                 if p in s[0] or p in s[1]:

@@ -3,16 +3,6 @@ import sys
 from infrastructure.repositories.csv_book_repository import CsvBookRepository
 
 
-def f():
-    try:
-        g = open("data.txt", "r")
-        h = g.readlines()
-        g.close()
-        return h
-    except:
-        return []
-
-
 def main():
     csv_book_repository = CsvBookRepository("books.csv")
 
@@ -28,25 +18,23 @@ def main():
             else:
                 csv_book_repository.save(j, k, l)
         elif i == "2":
-            m = f()
+            m = csv_book_repository.load()
             for n in m:
-                o = n.split(",")
                 print(
                     "タイトル:"
-                    + o[0]
+                    + n[0]
                     + " 著者:"
-                    + o[1]
+                    + n[1]
                     + " 価格:"
-                    + o[2].replace("\n", "")
+                    + n[2].replace("\n", "")
                 )
         elif i == "3":
             p = input("検索キーワード: ")
-            q = f()
+            q = csv_book_repository.load()
             r = 0
             for s in q:
-                t = s.split(",")
-                if p in t[0] or p in t[1]:
-                    print("発見:" + t[0] + "(" + t[1] + ")")
+                if p in s[0] or p in s[1]:
+                    print("発見:" + s[0] + "(" + s[1] + ")")
                     r = r + 1
             if r == 0:
                 print("なし")
